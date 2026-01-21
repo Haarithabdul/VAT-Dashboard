@@ -166,9 +166,8 @@ def main():
     quarterSelect = initDashboard(fileMap.quarters)
 
     if quarterSelect is not None:
-        sl.write("Quarter:", quarterSelect)
-        sl.write("Available files:", list(fileMap.filesDict.keys()))
-        createDashboard(quarterSelect, fileMap.filesDict)
+        if sl.button("Display"):
+            createDashboard(quarterSelect, fileMap.filesDict)
 
 
 if __name__ == "__main__":
