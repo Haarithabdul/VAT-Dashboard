@@ -26,7 +26,8 @@ def initDashboard(quarters):
         else:
             #Maintains selected quarter after other controls are selected
             sl.session_state["quarterSelect"] = quarterSelect
-            return quarterSelect
+            buttonPressed = True
+            return quarterSelect, buttonPressed
 
     return sl.session_state.get("quarterSelect", None)
 
@@ -163,12 +164,14 @@ def createDashboard(quarter, filesDict):
 
 
 def main():
-    quarterSelect = initDashboard(fileMap.quarters)
+    try:
+        quarterSelect, buttonPressed = initDashboard(fileMap.quarters)
 
-    if quarterSelect is not None:
-        if sl.button("Display"):
-            createDashboard(quarterSelect, fileMap.filesDict)
-
+        if quarterSelect is not None:
+            if buttonPressed:
+                createDashboard(quarterSelect, fileMap.filesDict)
+    except Exception:
+        pass
 
 if __name__ == "__main__":
     main()
