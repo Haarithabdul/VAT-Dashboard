@@ -6,6 +6,11 @@ import fileMap
 import streamlit as sl
 import plotly.express as px
 
+if "show_dashboard" not in sl.session_state:
+    sl.session_state.show_dashboard = False
+
+if "selected_quarter" not in sl.session_state:
+    sl.session_state.selected_quarter = None
 
 def initDashboard(quarters):
     #Sets title and widens the page layout
@@ -20,14 +25,14 @@ def initDashboard(quarters):
     )
 
     #Button on the sidebar to show data for selected quarter, runs error checks
+    #Maintains selected quarter after other controls are selected
     if sl.sidebar.button("Display"):
         if quarterSelect is None:
             sl.write("Please select a value")
         else:
-            #Maintains selected quarter after other controls are selected
-            sl.session_state["quarterSelect"] = quarterSelect
-            buttonPressed = True
-            return quarterSelect, buttonPressed
+            sl.session_state.show_dashboard = True
+            sl.session_state.selected_quarter = quarterSelect
+            return quarterSelect
 
     return sl.session_state.get("quarterSelect", None)
 
@@ -165,11 +170,10 @@ def createDashboard(quarter, filesDict):
 
 def main():
     try:
-        quarterSelect, buttonPressed = initDashboard(fileMap.quarters)
+        quarterSelect= initDashboard(fileMap.quarters)
 
         if quarterSelect is not None:
-            if buttonPressed:
-                createDashboard(quarterSelect, fileMap.filesDict)
+            createDashboard(quarterSelect, fileMap.filesDict)
     except Exception:
         pass
 
