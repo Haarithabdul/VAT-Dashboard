@@ -6,7 +6,7 @@ quarters = [
         "Q1-2024", "Q2-2024", "Q3-2024", "Q4-2024/25",
         "Q1-2025", "Q2-2025", "Q3-2025", "Q4-2025/26"
     ]
-'''
+
 filesDict = {
     quarters[0]: "Dummy Q1-2023.xlsx",
     quarters[1]: "Dummy Q2-2023.xlsx",
@@ -21,8 +21,8 @@ filesDict = {
     quarters[10]: "Dummy Q3-2025.xlsx",
     quarters[11]: "Dummy Q4-2025.xlsx"
     }
-'''
 
+'''
 def createDict():
     folder = Path(r"D:\WORK\VAT Dashboard\VAT Reports")
 
@@ -38,3 +38,4 @@ def createDict():
     return filesDict
 
 filesDict = createDict()
+'''

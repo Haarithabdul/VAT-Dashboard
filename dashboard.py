@@ -158,8 +158,15 @@ def createDashboard(quarter, filesDict):
 
     column1, column2, column3 = sl.columns(3)
 
-    createColumn1(column1, df)
-    createColumn2(column2, df, quarter, column3)
+    if df != None:
+        createColumn1(column1, df)
+    else:
+        sl.warning("Column 1 creation failure")
+
+    if df != None:
+        createColumn2(column2, df, quarter, column3)
+    else:
+        sl.warning("Column 2 creation failure")
 
 
 def main():
