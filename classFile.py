@@ -1,15 +1,22 @@
 #DEPENDENCIES
 from pathlib import Path
 import pandas as pd
+import streamlit as st
 
 
 class Data:
     def __init__(self, quarter, filesDict):
-        BASE_DIR = Path(__file__).parent
-        DATA_FILE = BASE_DIR / filesDict[quarter]
-
         #Reads excel file given and specific sheet name
-        self.rawData = pd.read_excel(DATA_FILE, sheet_name="Group detail")
+        path = filesDict[quarter]
+
+        st.write(f"Loading file:\n{path}")
+
+        try:
+            self.rawData = pd.read_excel(path, sheet_name="Group detail")
+            st.success("File Loaded!")
+        except Exception as e:
+            st.error(e)
+            st.stop()
 
     #Converts given file into a dataframe and renames columns
     def convertToDataFrame(self):
